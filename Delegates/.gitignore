@@ -1,0 +1,14 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+build/
+x64/
+x86/
+bld/
+bin/
+Bin/
+obj/
+Obj/
+.vs/
