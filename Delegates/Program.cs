@@ -1,33 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Delegates
 {
     class Program
     {
-        public delegate void Printer(string message);
+        public delegate bool CheckLengthOfString(string message);
         static void Main(string[] args)
         {
-            Printer p = Print;
-           
-            p += Print;
-            p += PrintTwice;
+            CheckLengthOfString d = LessThanFive;
+            d += MoreThanFive;
+            d += EqualToFive;
 
-            //or 
+            //List<bool> results = new List<bool>();
+            //foreach(var del in d.GetInvocationList())
+            //{
+            //    results.Add((bool)del.DynamicInvoke("Message"));
+            //}
 
-            p("hello message");
+            List<bool> results = d.GetInvocationList().Select(del => (bool)del.DynamicInvoke("Message")).ToList();
+
+            Console.WriteLine(string.Join(", ", results)); 
             Console.ReadLine();
         }
 
-        public static void PrintTwice(string message)
+        public static bool MoreThanFive(string name)
         {
-            Console.WriteLine(message + "1");
-            Console.WriteLine(message + "1");
+            return name.Length > 5;
         }
-        public static void Print(string message)
-        {
-            Console.WriteLine(message);
 
+        public static bool LessThanFive(string name)
+        {
+            return name.Length < 5;
         }
+
+        public static bool EqualToFive(string name)
+        {
+            return name.Length == 5;
+        }
+
+         
     }
 }
