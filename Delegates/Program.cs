@@ -5,49 +5,29 @@ namespace Delegates
 {
     class Program
     {
+        public delegate void Printer(string message);
         static void Main(string[] args)
         {
-            string[] names = { "Manju", "Puchhi", "Chitte", "Dummy", "Gum", "sis", "Kanadagal" };
-            List<string> lessThanFiveChar = NamesFilter(names, item => item.Length > 5);
-            List<string> moreThanFive = NamesFilter(names, item => item.Length < 5);
-            List<string> equalToFive = NamesFilter(names, item => item.Length == 5);
+            Printer p = Print;
+           
+            p += Print;
+            p += PrintTwice;
 
-            //List<string> lessThanFiveChar = NamesFilter(names, LessThanFive);
-            //List<string> moreThanFive = NamesFilter(names,MoreThanFive);
-            //List<string> equalToFive = NamesFilter(names, EqualToFive);
-            Console.WriteLine(string.Join(", ", lessThanFiveChar));
-            Console.WriteLine(string.Join(", ", moreThanFive));
-            Console.WriteLine(string.Join(", ", equalToFive));
+            //or 
+
+            p("hello message");
             Console.ReadLine();
         }
 
-        delegate bool Filters(string item);
-        public static bool MoreThanFive(string name)
+        public static void PrintTwice(string message)
         {
-            return name.Length > 5;
+            Console.WriteLine(message + "1");
+            Console.WriteLine(message + "1");
         }
-
-        public static bool LessThanFive(string name)
+        public static void Print(string message)
         {
-            return name.Length < 5;
-        }
+            Console.WriteLine(message);
 
-        public static bool EqualToFive(string name)
-        {
-            return name.Length == 5;
-        }
-
-        private static List<string> NamesFilter(string[] names , Filters filters)
-        {
-            List<string> result = new List<string>();
-            foreach(var name in names)
-            {
-                if(filters(name))
-                {
-                    result.Add(name);
-                }
-            }
-            return result;
         }
     }
 }
