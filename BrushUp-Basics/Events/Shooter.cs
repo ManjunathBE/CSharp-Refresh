@@ -7,9 +7,8 @@ namespace Events
     {
         private Random rng = new Random();
 
-        public delegate void ShootingHandler(object sender, ShotsFiredEventArgs e);
 
-        public event ShootingHandler ShotFired;
+        public event EventHandler<ShotsFiredEventArgs> ShotFired;
 
         public string Name { get; set; } = "Billy";
         public void onShoot()
@@ -18,10 +17,9 @@ namespace Events
             {
                 if(rng.Next(0,100) % 2 == 0)
                 {
-                    if(ShotFired != null)
-                    {
-                        ShotFired.Invoke(this, new ShotsFiredEventArgs() { TimeOfKill = DateTime.Now });
-                    }
+                     
+                        ShotFired?.Invoke(this, new ShotsFiredEventArgs() { TimeOfKill = DateTime.Now });
+                    
                 }
                 else
                 {
