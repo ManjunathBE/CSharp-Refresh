@@ -8,9 +8,13 @@ namespace Delegates
         static void Main(string[] args)
         {
             string[] names = { "Manju", "Puchhi", "Chitte", "Dummy", "Gum", "sis", "Kanadagal" };
-            List<string> lessThanFiveChar = NamesFilter(names, LessThanFive);
-            List<string> moreThanFive = NamesFilter(names,MoreThanFive);
-            List<string> equalToFive = NamesFilter(names, EqualToFive);
+            List<string> lessThanFiveChar = NamesFilter(names, item => item.Length > 5);
+            List<string> moreThanFive = NamesFilter(names, item => item.Length < 5);
+            List<string> equalToFive = NamesFilter(names, item => item.Length == 5);
+
+            //List<string> lessThanFiveChar = NamesFilter(names, LessThanFive);
+            //List<string> moreThanFive = NamesFilter(names,MoreThanFive);
+            //List<string> equalToFive = NamesFilter(names, EqualToFive);
             Console.WriteLine(string.Join(", ", lessThanFiveChar));
             Console.WriteLine(string.Join(", ", moreThanFive));
             Console.WriteLine(string.Join(", ", equalToFive));
